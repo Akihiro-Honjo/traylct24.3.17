@@ -7,8 +7,19 @@
 </head>
 <body>
     <h1>質問の答え</h1>
-    <p><strong>質問:</strong> {{ question }}</p>
-    <p><strong>答え:</strong> {{ answer }}</p>
+    <!-- answer.html の例 -->
+    {% for maker, category, product, purpose, image_base64 in product_info_with_images %}
+        <p>メーカー: {{ maker }}</p>
+        <p>ジャンル: {{ category }}</p>
+        <p>商品: {{ product }}</p>
+        <p>用途: {{ purpose }}</p>
+    {% if image_base64 %}
+        <img src="data:image/jpeg;base64,{{ image_base64 }}" alt="商品画像">
+    {% endif %}
+    {% endfor %}
+
+    <!-- <p><strong>質問:</strong> {{ question }}</p>
+    <p><strong>答え:</strong> {{ answer }}</p> -->
     <a href="/">新しい質問をする</a>
 </body>
 </html>
