@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>質問の答え</title>
+    <style>
+        .product {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <h1>質問の答え</h1>
-    <!-- answer.html の例 -->
-    {% for maker, category, product, purpose, image_base64 in product_info_with_images %}
-        <p>メーカー: {{ maker }}</p>
-        <p>ジャンル: {{ category }}</p>
-        <p>商品: {{ product }}</p>
-        <p>用途: {{ purpose }}</p>
-    {% if image_base64 %}
-        <img src="data:image/jpeg;base64,{{ image_base64 }}" alt="商品画像">
-    {% endif %}
-    {% endfor %}
+    <p><strong>質問:</strong> {{ question }}</p>
+    <p><strong>回答:</strong> {{ answer }}</p>
 
-    <!-- <p><strong>質問:</strong> {{ question }}</p>
-    <p><strong>答え:</strong> {{ answer }}</p> -->
+    <h2>商品情報</h2>
+    <!-- {% for product_data in product_info_with_images %} -->
+        <div class="product">
+            <p><strong>商品名:</strong> {{ product_data[0] }}</p>
+            <p><strong>カテゴリ:</strong> {{ product_data[1] }}</p>
+            <p><strong>メーカー:</strong> {{ product_data[2] }}</p>
+            <p><strong>サイズ:</strong> {{ product_data[3] }}</p>
+            <p><strong>特徴:</strong> {{ product_data[4] }}</p>
+            <p><strong>画像:</strong><br>
+            <img src="data:image/jpeg;base64,{{ product_data[5] }}" alt="商品画像"></p>
+        </div>
+    <!-- {% endfor %} -->
     <a href="/">新しい質問をする</a>
 </body>
 </html>
