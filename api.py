@@ -10,6 +10,9 @@ app = Flask(__name__)
 # 環境変数からOpenAIのAPIキーを取得
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+# 環境変数 'DATABASE_URL' を取得し、デフォルト値として 'localhost' を使用
+DATABASE_URL = os.getenv('http://localhost/phpmyadmin/index.php?route=/sql&pos=0&db=tray_data&table=tray_product', 'localhost')
+
 # データベース接続設定
 def get_db_connection():
     conn = mysql.connector.connect(
