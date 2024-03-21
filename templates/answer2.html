@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>質問と回答</title>
+    <style>
+        .product {
+            margin-bottom: 20px;
+        }
+        .product img {
+            max-width: 100px; /* 画像のサイズ調整 */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h2>質問:</h2>
+    <p>{{ question }}</p>
+</div>
+<div>
+    <h2>回答:</h2>
+    <p>{{ answer }}</p>
+</div>
+<div>
+    <h2>検索結果:</h2>
+    {% if search_results %}
+        <ul>
+        {% for result in search_results %}
+            <li class="product">
+                商品名: {{ result[0] }}, カテゴリ: {{ result[1] }}, メーカー: {{ result[2] }}, サイズ: {{ result[3] }}, 特徴: {{ result[4] }}
+                {% if result[5] %}
+                    <div><img src="{{ result[5] }}" alt="商品画像"></div>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>該当する商品が見つかりませんでした。</p>
+    {% endif %}
+</div>
+<a href="/">新しい質問をする</a>
+</body>
+</html>
