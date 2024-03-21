@@ -15,10 +15,10 @@
 # # データベース接続設定
 # def get_db_connection():
 #     conn = mysql.connector.connect(
-#         host="localhost",
-#         user="root",
-#         password="",  
-#         database="tray_data"
+        # host="localhost",
+        # user="root",
+        # password="",  
+        # database="tray_data"
 #     )
 #     return conn
 
