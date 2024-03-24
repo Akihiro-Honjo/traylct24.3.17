@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------#
-# 下記マークダウンからの抽出
+
 import mysql.connector
 from flask import Flask, request, render_template
 import openai
@@ -37,16 +37,25 @@ def home():
         return render_template('answer.html', question=user_question, answer=answer)
     return render_template('index.html')
 
+
 # ---------------------------------------------------------------------------------------------------------------------------------------#
 # SQLからの読み込み
 def get_db_connection():
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",  # 実際の環境では安全な方法でパスワードを扱ってください
-        database="tray_data"
+    host="us-cluster-east-01.k8s.cleardb.net",
+    user="b6ebe5836a9814",
+    password="9c68da67",
+    database="heroku_5d81e4bbe09030e"
     )
     return conn
+# def get_db_connection():
+#     conn = mysql.connector.connect(
+#         host="localhost",
+#         user="root",
+#         password="",  
+#         database="tray_data"
+#     )
+#     return conn
 
 def get_product_info_with_image():
     conn = get_db_connection()
