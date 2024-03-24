@@ -10,7 +10,7 @@ import base64
 
 app = Flask(__name__)
 
-# app.config['mysql+pymysql://root:@localhost/tray_data'] = os.environ['mysql://b6ebe5836a9814:9c68da67@us-cluster-east-01.k8s.cleardb.net/heroku_5d81e4bbe09030e?reconnect=true']
+
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
