@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS tray_product (
     image BLOB    
 )
 """
-def insert_image_data(product, category, maker, size, features, image_path):
-    binary_data = convert_image_to_binary(image_path)
-    insert_query = """
-    INSERT INTO tray_product (product, category, maker, size, features, image)
-    VALUES (%s, %s, %s, %s, %s, %s)
-    """
-    cursor.execute(insert_query, (product, category, maker, size, features, binary_data))
-    conn.commit()
+# def insert_image_data(product, category, maker, size, features, image_path):
+#     binary_data = convert_image_to_binary(image_path)
+#     insert_query = """
+#     INSERT INTO tray_product (product, category, maker, size, features, image)
+#     VALUES (%s, %s, %s, %s, %s, %s)
+#     """
+#     cursor.execute(insert_query, (product, category, maker, size, features, binary_data))
+#     conn.commit()
 
 # # 画像データを含むデータを挿入
 # image_path = r'c:\Users\akhr0\OneDrive\デスクトップ\トレー写真\MFPかぐら丼17-17.jpg' 
