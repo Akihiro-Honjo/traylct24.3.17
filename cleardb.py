@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS tray_product (
 # # データ挿入関数を呼び出し
 # insert_image_data(*tray_data)
 
+
 # 接続を閉じる
 cursor.close()
 conn.close()

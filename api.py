@@ -4,12 +4,13 @@ import mysql.connector
 from flask import Flask, request, render_template
 import openai
 import os
+from urllib.parse import urlparse
 
 import base64
 
 app = Flask(__name__)
 
-# app.config['mysql+pymysql://root:@localhost/tray_data'] = os.environ['mysql://b6ebe5836a9814:9c68da67@us-cluster-east-01.k8s.cleardb.net/heroku_5d81e4bbe09030e?reconnect=true']
+
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -51,6 +52,7 @@ def home():
 #     )
 #     return conn
 def get_db_connection():
+    url = urlparse(os.environ['mysql://b6ebe5836a9814:9c68da67@us-cluster-east-01.k8s.cleardb.net/heroku_5d81e4bbe09030e?reconnect=true'])
     conn = mysql.connector.connect(
         host="us-cluster-east-01.k8s.cleardb.net",
         user="b6ebe5836a9814",
