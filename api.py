@@ -42,20 +42,12 @@ def home():
 # SQLからの読み込み
 def get_db_connection():
     conn = mysql.connector.connect(
-    host="us-cluster-east-01.k8s.cleardb.net",
-    user="b6ebe5836a9814",
-    password="9c68da67",
-    database="heroku_5d81e4bbe09030e"
+        host="localhost",
+        user="root",
+        password="",  
+        database="tray_data"
     )
     return conn
-# def get_db_connection():
-#     conn = mysql.connector.connect(
-#         host="localhost",
-#         user="root",
-#         password="",  
-#         database="tray_data"
-#     )
-#     return conn
 
 def get_product_info_with_image():
     conn = get_db_connection()
