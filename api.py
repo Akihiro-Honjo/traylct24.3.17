@@ -47,7 +47,7 @@ def home():
 
 def get_db_connection():
     # 環境変数からデータベースのURLを取得し、解析
-    url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
+    url = urlparse(os.environ['DATABASE_URL'])
 
     # 接続情報を用いてMySQLデータベースに接続
     conn = mysql.connector.connect(
