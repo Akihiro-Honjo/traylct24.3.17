@@ -43,27 +43,11 @@ def home():
 
 # ---------------------------------------------------------------------------------------------------------------------------------------#
 # SQLからの読み込み
-# def get_db_connection():
-#     conn = mysql.connector.connect(
-#         host="localhost",
-#         user="root",
-#         password="",  
-#         database="tray_data"
-#     )
-#     return conn
-# def get_db_connection():
-#     url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
-#     conn = mysql.connector.connect(
-#         host=url.us-cluster-east-01.k8s.cleardb.net,
-#         user=url.b6ebe5836a9814,
-#         password=url.9c68da67,  
-#         database=url.heroku_5d81e4bbe09030e,
-#     )
-#     return conn
+
 
 def get_db_connection():
     # 環境変数からデータベースのURLを取得し、解析
-    url = urlparse(os.environ['mysql://b6ebe5836a9814:9c68da67@us-cluster-east-01.k8s.cleardb.net/heroku_5d81e4bbe09030e?reconnect=true'])
+    url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
 
     # 接続情報を用いてMySQLデータベースに接続
     conn = mysql.connector.connect(
@@ -143,3 +127,21 @@ if __name__ == '__main__':
 # if __name__ == '__main__':
 #     app.run(debug=True)
 # ---------------------------------------------------------------------------------------------------------------------------------------#
+
+# def get_db_connection():
+#     conn = mysql.connector.connect(
+#         host="localhost",
+#         user="root",
+#         password="",  
+#         database="tray_data"
+#     )
+#     return conn
+# def get_db_connection():
+#     url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
+#     conn = mysql.connector.connect(
+#         host=url.us-cluster-east-01.k8s.cleardb.net,
+#         user=url.b6ebe5836a9814,
+#         password=url.9c68da67,  
+#         database=url.heroku_5d81e4bbe09030e,
+#     )
+#     return conn
