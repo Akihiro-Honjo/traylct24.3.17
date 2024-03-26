@@ -25,12 +25,15 @@ def home():
 
         # 商品情報をユーザーの質問の前に追加
         full_prompt = f"{product_info_md}\n\n{user_question}"
-
+        
+        # プロンプト設定
         try:
+            response_format_instruction  = "以下の情報を基に、最適な商品を以下の形式で推薦してください: 商品ID：[ID] 商品名：[商品名]"
+            full_prompt = f"{product_info_md}\n\n{response_format_instruction}\n\n{user_question}"
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "これはChatGPTとの対話です。"},
+                    {"role": "system", "content": "以下の形式で該当するすべての商品名とIDを教えてください: 「商品ID：[ID] 商品名：[商品名]」"},
                     {"role": "user", "content": full_prompt}
                 ]
             )
