@@ -10,12 +10,20 @@ def convert_image_to_binary(image_path):
     return binary_data
 
 # MySQLに接続
+# conn = mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="",
+#     database="tray_data"
+# )
+
 conn = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="tray_data"
+    host="[us-cluster-east-01.k8s.cleardb.net]",
+    user="[b6ebe5836a9814]",
+    password="[9c68da67]",
+    database="[heroku_5d81e4bbe09030e]"
 )
+
 
 # カーソルを取得
 cursor = conn.cursor()
