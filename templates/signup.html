@@ -3,31 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>新規ユーザー登録画面</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1, h3 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>TRAYLECT</h1>
-    <h3>新規ユーザー登録画面</h3>
-    <!-- エラーメッセージ -->
-    <p style="color: red;">{{error_message}}</p>
-   <!-- ログインフォーム -->
-<form method="POST">
-    <table border="1">
-        <tr>
-            <th>ユーザーID</th>
-            <th>パスワード</th>
-        </tr>
-        <tr>
-            <td>
-                <input type="text" name="userid" value="{{userid}}">
-            </td>
-            <td>
-                <input type="password" name="password">
-            </td>
-        </tr>            
-    </table>
-    <input type="submit" value="登録">
-    <a href="/login">ログイン画面</a>
-</form>
+    <form method="POST">
+        <h3>新規ユーザー登録画面</h3>
+        <!-- エラーメッセージ -->
+        <p class="error-message">{{error_message}}</p>
+        <!-- ユーザー登録フォーム -->
+        <input type="text" name="userid" placeholder="ユーザーID" value="{{userid}}">
+        <input type="password" name="password" placeholder="パスワード">
+        <input type="submit" value="登録">
+        <a href="/login">ログイン画面</a>
+    </form>
 </body>
 </html>
-
