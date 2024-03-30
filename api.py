@@ -14,7 +14,6 @@ app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def get_db_connection():
-    # 環境変数からデータベースのURLを取得し、解析
     url = urlparse(os.environ['DATABASE_URL'])
 
     # 接続情報を用いてMySQLデータベースに接続
@@ -22,26 +21,45 @@ def get_db_connection():
         host=url.hostname,  # ホスト名
         user=url.username,  # ユーザー名
         password=url.password,  # パスワード
-        database=url.path[1:],  # データベース名 (先頭の '/' を取り除く)
+        database=url.path[1:],  # データベース名 
     )
     return conn
 
-def get_product_info_with_image():
+
+def get_product_info_with_image(category=None, maker=None):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT product, category, maker, size, features, image FROM tray_product")
+    query = "SELECT product, category, maker, size, features, image FROM tray_product"
+    conditions = []
+    params = []
+
+    if category:
+        conditions.append("category = %s")
+        params.append(category)
+    
+    if maker:
+        conditions.append("maker = %s")
+        params.append(maker)
+    
+    if conditions:
+        query += " WHERE " + " AND ".join(conditions)
+    
+    cursor.execute(query, params)
     product_info_with_images = []
     for (product, category, maker, size, features, image) in cursor.fetchall():
         image_base64 = base64.b64encode(image).decode('utf-8') if image else None
         product_info_with_images.append((product, category, maker, size, features, image_base64))
+    
     cursor.close()
     conn.close()
     return product_info_with_images
 
+
+
+
 def get_product_info_by_ids(ids):
     conn = get_db_connection()
     cursor = conn.cursor()
-    # SQLクエリにおいて、WHERE句で複数のIDを指定するために、%sをIDの数だけ繰り返します
     query = "SELECT product, category, maker, size, features, image FROM tray_product WHERE id IN ({})".format(', '.join(['%s'] * len(ids)))
     cursor.execute(query, ids)
     products_info = []
@@ -97,15 +115,16 @@ def home():
     return render_template('index.html')
 
 
-
-
-
-@app.route('/sql_data')
+@app.route('/sql_data', methods=['GET', 'POST'])
 def sql_data():
-    # Correct function call
-    product_info_with_images = get_product_info_with_image()
-    # Pass the correct variable to the template
+    if request.method == 'POST':
+        category = request.form.get('category')
+        maker = request.form.get('maker')
+        product_info_with_images = get_product_info_with_image(category, maker)
+    else:
+        product_info_with_images = get_product_info_with_image()
     return render_template('sql_data.html', product_info=product_info_with_images)
+
 
 
 if __name__ == '__main__':

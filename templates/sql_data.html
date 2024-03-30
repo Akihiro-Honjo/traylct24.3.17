@@ -61,6 +61,33 @@
     <h1>TRAYLECT</h1>
     <h3>商品情報一覧</h3>
     <a href="/">検索画面</a>
+    <a href="/sql_data">一覧ページへ戻る</a>
+    <form action="/sql_data" method="post">
+        <label for="category">カテゴリー：</label>
+        <select name="category" id="category">
+            <option value="">すべて</option>
+            <option value="刺身">刺身</option>
+            <option value="寿司">寿司</option>
+            <option value="精肉">精肉</option>
+            <option value="惣菜">惣菜</option>
+            <option value="米飯">米飯</option>
+            <option value="軽食">軽食</option>
+            <option value="丼">丼</option>
+            <option value="青果">青果</option>
+        </select>
+        
+        <label for="maker">メーカー：</label>
+        <select name="maker" id="maker">
+            <option value="">すべて</option>
+            <option value="エフピコ">エフピコ</option>
+            <option value="シーピー化成">シーピー化成</option>
+            <option value="中央化学">中央化学</option>
+            <option value="リスパック">リスパック</option>
+        </select>
+        
+        <input type="submit" value="絞り込み">
+    </form>
+    
     <table>
         <tr>
             <th>商品名</th>
