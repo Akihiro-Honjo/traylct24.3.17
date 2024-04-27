@@ -62,8 +62,11 @@
         <p>{{ answer }}</p>
     </div>
     <a href="/">検索画面に戻る</a>
+
+    <form action="{{ url_for('sample') }}" method="POST">
     <table>
         <tr>
+            <th>サンプル依頼</th>
             <th>商品名</th>
             <th>カテゴリ</th>
             <th>メーカー</th>
@@ -73,6 +76,7 @@
         </tr>
         {% for product, category, maker, size, features, image_base64 in product_info %}
         <tr>
+            <td><input type="checkbox" name="id" value="{{ product.id }}"></td>
             <td>{{ product }}</td>
             <td>{{ category }}</td>
             <td>{{ maker }}</td>
@@ -86,5 +90,10 @@
         </tr>
         {% endfor %}
     </table>
+    <button type="submit">選択した商品を表示</button>
+</form>
+
+    
+    
 </body>
 </html>

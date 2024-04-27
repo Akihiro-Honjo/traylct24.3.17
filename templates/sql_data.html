@@ -61,6 +61,7 @@
     <h1>TRAYLECT</h1>
     <h3>商品情報一覧</h3>
     <a href="/">検索画面</a>
+    <!-- <a href="/sample">サンプル依頼商品</a> -->
     <a href="/sql_data">一覧ページへ戻る</a>
     <form action="/sql_data" method="post">
         <label for="category">カテゴリー：</label>
@@ -96,6 +97,7 @@
             <th>サイズ</th>
             <th>特徴</th>
             <th>画像</th>
+            <!-- <th>サンプル依頼</th> -->
         </tr>
         {% for product, category, maker, size, features, image_base64 in product_info %}
         <tr>
@@ -109,6 +111,9 @@
                 <img src="data:image/jpeg;base64,{{ image_base64 }}" alt="Product Image">
                 {% endif %}
             </td>
+            <!-- <td>
+                <input type="checkbox" name="sample_request_{{ loop.index }}" id="sample_request_{{ loop.index }}"> 
+            </td> -->
         </tr>
         {% endfor %}
     </table>

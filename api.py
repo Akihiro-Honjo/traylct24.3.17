@@ -1,9 +1,10 @@
 import mysql.connector
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template,url_for
 import openai
 import os
 from urllib.parse import urlparse
 import re
+
 
 import base64
 
@@ -57,18 +58,44 @@ def get_product_info_with_image(category=None, maker=None):
 
 
 
+# def get_product_info_by_ids(ids):
+#     conn = get_db_connection()
+#     cursor = conn.cursor()
+#     query = "SELECT product, category, maker, size, features, image FROM tray_product WHERE id IN ({})".format(', '.join(['%s'] * len(ids)))
+#     cursor.execute(query, ids)
+#     products_info = []
+#     for (product, category, maker, size, features, image) in cursor.fetchall():
+#         image_base64 = base64.b64encode(image).decode('utf-8') if image else None
+#         products_info.append((product, category, maker, size, features, image_base64))
+#     cursor.close()
+#     conn.close()
+#     return products_info
+
+# 4/1変更
 def get_product_info_by_ids(ids):
+    # 空のリストが渡された場合、早期に空のリストを返す
+    if not ids:
+        return []
+
     conn = get_db_connection()
     cursor = conn.cursor()
-    query = "SELECT product, category, maker, size, features, image FROM tray_product WHERE id IN ({})".format(', '.join(['%s'] * len(ids)))
-    cursor.execute(query, ids)
+
+    # プレースホルダーを使用してクエリを安全に構築
+    placeholders = ', '.join(['%s'] * len(ids))
+    query = f"SELECT product, category, maker, size, features, image FROM tray_product WHERE id IN ({placeholders})"
+
+    # クエリを実行
+    cursor.execute(query, tuple(ids))
+
     products_info = []
     for (product, category, maker, size, features, image) in cursor.fetchall():
         image_base64 = base64.b64encode(image).decode('utf-8') if image else None
         products_info.append((product, category, maker, size, features, image_base64))
+
     cursor.close()
     conn.close()
     return products_info
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -124,6 +151,17 @@ def sql_data():
     else:
         product_info_with_images = get_product_info_with_image()
     return render_template('sql_data.html', product_info=product_info_with_images)
+
+@app.route('/sample', methods=['GET', 'POST'])
+def sample():
+    if request.method == 'POST':
+        selected_ids = request.form.getlist('id')
+        if selected_ids:
+            product_info = get_product_info_by_ids(selected_ids)
+        else:
+            product_info = []
+        return render_template('sample.html', product_info=product_info)
+    return redirect(url_for('home'))
 
 
 
